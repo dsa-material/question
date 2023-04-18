@@ -1,0 +1,35 @@
+ bool graphColoring(bool graph[101][101], int m, int n) {
+       vector<int> colour(n,0);
+       return recursion(graph,colour,m,n,0); 
+       
+       
+    }
+    bool check(bool graph[101][101],vector<int> &colour,int m,int n,int index,int col)
+    {
+        for(int i=0;i<n;i++)
+        {
+            if(i!=index && graph[i][index]==1 && col==colour[i])return false;
+            //not check for same node 
+            //check any node adjecent is coloured with col
+            //graph is i check adjecent node
+        }
+        return true;
+    }
+    
+    bool recursion(bool graph[101][101],vector<int> &colour,int m,int n,int index)
+    {
+        
+        if(index==n)
+        return true;
+        
+        for(int i=1;i<=m;i++)
+        {
+            if(check(graph,colour,m,n,index,i)==true)
+            {
+                colour[index]=i;
+                if(recursion(graph,colour,m,n,index+1)==true)return true;
+                colour[index]=0;
+            }
+        }
+        return false;
+    }
